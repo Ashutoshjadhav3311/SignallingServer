@@ -6,6 +6,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
+// Middleware to enable CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
+  res.header('Access-Control-Allow-Methods', 'GET, POST'); // Allow GET and POST requests
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specified headers
+  next();
+});
+
 // Handle WebSocket connections
 io.on('connection', socket => {
   console.log('A user connected');
